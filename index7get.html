@@ -90,32 +90,31 @@
 
             datakeys = data.categories            
 
-            for (var i = 0; i <= datakeys.length; i++) {
+            for (var i = 0; i < datakeys.length; i++) {
                 var currentObject = datakeys[i]
                 
                 resultDiv.append
                         (
                             '<div >'+
-                                    "<h1>" + currentObject.name + "</h1> " +    
-                                    // "<p>" + currentItem.title + "</p> " +                               
-                            
+                                    "<h1>" + currentObject.name + "</h1> " +                                
                             '</div>',
                         );
 
                 for (var j = 0; j < currentObject.job_roles.length; j+=1) {
                     
                     var currentItem = currentObject.job_roles[j];
+                    var imageUrl = currentItem.image;
+                    var imageElement = $('<img>', { src: imageUrl, alt: 'Image', height: 200, width: 200});
                    
                 
                         resultDiv.append
                             (
-                                "<h3>" + currentItem.title + "</h3> "  
+                                "<h3>" + currentItem.title + "</h3> " 
+                                +imageElement[0].outerHTML 
                             );
 
-                    var imageUrl = currentItem.image;
-                    var imageElement = $('<img>', { src: imageUrl, alt: 'Image' });
+                            
 
-                    $('#resultDiv').append(imageElement);
                                   
 
                     

@@ -82,31 +82,21 @@
 
             datakeys = data.casestudy
 
-            // var imageUrl = datakeys.image;
-            // alert(JSON.stringify(imageUrl))
-
-            var title 
-            var description
+                    
 
 
-            for (var i = 0; i <= datakeys.length; i++) {
+            for (var i = 0; i < datakeys.length; i++) {
                 var currentObject = datakeys[i]
 
-                
+                var imageUrl = currentObject.image;
+                    var imageElement = $('<img>', { src: imageUrl, alt: 'Image', height:200, width: 200});
 
                     resultDiv.append
                     (
-                                // "<p>" + currentObject.id + "</p> " + 
                                 "<p>" + currentObject.title + "</p> " +
-                                // "<p>" + currentObject.description + "</p> " +
-                                "<p>" + currentObject.description + "</p> "              
-                    );
-
-                    var imageUrl = currentObject.image;
-                    var imageElement = $('<img>', { src: imageUrl, alt: 'Image' });
-
-                    $('#resultDiv').append(imageElement);
-                                  
+                                "<p>" + currentObject.description + "</p> "     
+                                + imageElement[0].outerHTML        
+                    );                                  
             }
 
             
