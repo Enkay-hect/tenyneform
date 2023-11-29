@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+    <style>
+        body{
+            margin: 0;
+        }
+        .form_container{
+            width: 100%;
+            min-height: 100vh;
+            /* background-color: gray; */
+            display: flex;
+            align-items: center;
+            /* margin: 0 auto; */
+        }
+
+        .form_container .form{
+            width: 70%;
+            margin: 0 auto;
+            min-height: 40vh;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+         .input{
+            border-radius: 5px;
+            min-height: 5vh;
+            border: 2px solid black;
+            padding: 0.5rem 1rem;
+            /* min-height: 50vw; */
+        }
+
+    </style>
+        
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <div class="form_container" style="display: flex; flex-direction: column;">
+            <h1>Get Programs </h1>
+
+            <div class="form">
+
+                <div class="input" id="result"></div>
+            
+            </div>
+
+  </div>
+
+<script src="./services.js" type="text/javascript"></script>
+
+<script>
+
+    $(document).ready(function() {
+
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8000/api/getprogram',
+            cache: false,
+            processData: false, 
+            
+            success: function(data) {
+                displayData(data);
+                
+            },
+
+            error: function (request, status, error) {
+                console.error(request.responseText);
+            }
+        });
+                
+        function displayData(data) {
+            var resultDiv = $("#result");
+            resultDiv.empty();
+
+            datakeys = data.program_categories
+
+            // console.log(datakeys.programs)
+
+                    
+
+
+            for (var i = 0; i < datakeys.length; i++) {
+                var currentObject = datakeys[i]
+
+
+                for (var j = 0; j < currentObject.programs.length; j++) {
+                    var currentItem = currentObject.programs[j];
+
+                    var imageUrl = currentItem.image;
+                    var imageElement = $('<img>', { src: imageUrl, alt: 'Image', height:200, width: 200});
+
+                    for(var k = 0; k < currentItem.instructors.length; k++){
+                        currentIns = currentItem.instructors[k]
+
+                        
+
+                        resultDiv.append
+                            (
+                                '<div style="display: flex; flex-direction: column; border:2px solid red">'+
+                                        // "<p>" + currentObject.id + "</p> " + 
+                                        "<p>" + currentObject.name + "</p> " +
+                                        
+                                        "<p>" + currentItem.programTitle + "</p> " + 
+
+                                        "<p>" + currentIns.name + "</p> " +
+
+                                         imageElement[0].outerHTML +
+                                '</div>',
+                            );
+
+                    }
+    
+                }
+               
+            }
+
+            
+        }
+
+    });
+        
+</script>
+    
+</body>
+</html>
