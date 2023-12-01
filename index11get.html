@@ -84,47 +84,49 @@
             var attachNames = $("#attachNames");
             attachNames.empty();
 
-            datakeys = data.program_categories
 
-            for (var i = 0; i < datakeys.length; i++) {
+            datakeys = data.programs
+
+
+            for (var i = 0; i < datakeys.length; i++) 
+            {
                 var currentObject = datakeys[i]
 
+                var currentItem = currentObject.program
 
-                for (var j = 0; j < currentObject.programs.length; j++) {
-                    var currentItem = currentObject.programs[j];
-
-                    var imageUrl = currentItem.image;
-                    var imageElement = $('<img>', { src: imageUrl, alt: 'Image', height:200, width: 200});
-
-
-                    for(var k = 0; k < currentItem.instructors.length; k++){
-                        currentIns = currentItem.instructors[k]
-                        resultDiv.append
-                            (
-                                '<div style="display: flex; flex-direction: column; border:2px solid red">'+
-                                    "<p>" + 
-                                        currentIns.name 
-                                        + "</p> " +
-                                '</div>'
-                            );
-                        
-                    }
-    
-                }
-
-
-                    resultDiv.append
-                            (
-                                '<div id="attachNames" style="display: flex; flex-direction: column-reverse; border:2px solid red">'+
-                                        "<p>" + currentObject.name + "</p> " +
-                                        
-                                        "<p>" + currentItem.programTitle + "</p> " + 
-
-                                         imageElement[0].outerHTML +
-                                '</div>',
-                            );
+                var currentInstructors = currentItem.instructors;
+                var currentProgramCategories = currentItem.program_categories;
+                var imageUrl = currentObject.image;
+                var imageElement = $('<img>', { src: imageUrl, alt: 'Image', height:200, width: 200});
                 
-               
+                // console.log(currentProgramCategories)
+
+                var programContainer = $('<div style="display: flex; flex-direction: column-reverse; border:2px solid yellow"></div>');
+
+
+                for (var j = 0; j < currentInstructors.length; j++) 
+                {
+                    var currentIns = currentInstructors[j];
+
+                    var attachNames = $('<div style="display: flex; flex-direction: column-reverse; border:2px solid green"></div>');
+                   
+                    attachNames.append("<p>"  +  'Instructor Name:'+  currentIns.instructor_name + "</p>");
+                    programContainer.append(attachNames);
+                    
+
+
+                    for(var k = 0; k < currentProgramCategories.length; k++)
+                    {
+                        currentCat = currentProgramCategories[k]  
+                    }
+                }
+                    programContainer.append("<p>" +  'Category Title:'+ currentCat.title + "</p>");
+
+                    programContainer.append("<p>" + 'Program Title:'+ currentItem.programTitle + "</p>");
+
+                    programContainer.append(imageElement[0].outerHTML);
+
+                    resultDiv.append(programContainer);               
             }
 
             
